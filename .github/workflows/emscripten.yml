@@ -9,7 +9,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libtool-bin flex
 
-      - name: Install Emscripten SDK
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install Emscripten SDK and run build
         run: |
           git clone https://github.com/emscripten-core/emsdk.git
           cd emsdk
@@ -17,15 +20,7 @@ jobs:
           ./emsdk activate 3.1.64
           source ./emsdk_env.sh
           cd ..
-     
-      - name: Verify
-        run: emcc -v
-     
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Check for required tools
-        run: "./util/bldlvlck"
-      - name: emconfigure ./configure
-        run: emconfigure ./configure
-      - name: emmake make
-        run: emmake make
+          ./util/bldlvlck
+          emcc -v
+          emconfigure ./configure
+          emmake make
