@@ -11,9 +11,15 @@ jobs:
           actions-cache-folder: "emsdk-cache-3.1.64"
       - name: Verify
         run: emcc -v
+      - name: Install required tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libtool-bin flex
       - name: Check out repository code
         uses: actions/checkout@v4
-      - run: "./configure"
-        name: Configure
-      - run: make
-        name: make
+      - name: Check for required tools
+        run: "./util/bldlvlck"
+      - name: emconfigure ./configure
+        run: emconfigure ./configure
+      - name: emmake make
+        run: emmake make
