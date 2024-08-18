@@ -1,0 +1,26 @@
+name: Build MacOS Intel
+on: [push, workflow_dispatch]
+jobs:
+  build-macos-silicon:
+    runs-on: macos-13
+    steps:
+      - name: "Verify that it's x86_64 Intel - an old Mac"
+        run: |
+          sysctl -n machdep.cpu.brand_string
+          uname -m
+          uname -m | grep -q "x86_64" && exit 1
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: |
+          ./configure
+      - name: Make
+        run: |
+          make
+      - name: Make install
+        run: |
+          sudo make install
+      - name: Check artifact
+        run: hercules -v
