@@ -25,7 +25,7 @@ jobs:
 
       - name: Configure
         run: |
-          ./configure
+          ./configure --enable-extpkgs=/Users/runner/work/hyperion/hyperion/gists/
       - name: Make
         run: |
           make
