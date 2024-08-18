@@ -10,12 +10,23 @@ jobs:
           uname -m
           uname -m | grep -q "x86_64" || exit 1
 
+      - name: Build the dependent libraries
+        working-directory: /Users/runner/work
+        run: |
+          git clone https://github.com/SDL-Hercules-390/gists.git extpkgs
+          cd extpkgs
+
+          # Configure it for x86
+          sed -i '' 's/^cpu .*/cpu = x86/' extpkgs.sh.ini
+
+          ./extpkgs.sh clone c d s t
+
       - name: Check out repository code
         uses: actions/checkout@v4
 
       - name: Configure
         run: |
-          ./configure
+          ./configure --enable-extpkgs=/Users/runner/work/extpkgs/
       - name: Make
         run: |
           make
