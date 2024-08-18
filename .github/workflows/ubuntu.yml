@@ -1,0 +1,15 @@
+name: Ubuntu build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: |
+          ./configure
+      - name: Make
+        run: |
+          make
