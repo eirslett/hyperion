@@ -14,6 +14,10 @@ jobs:
         run: |
           git clone https://github.com/SDL-Hercules-390/gists.git
           cd gists
+
+          # Configure it for aarch64
+          sed -i '' 's/^cpu .*/cpu = aarch64/' extpkgs.sh.ini
+
           ./extpkgs.sh clone c d s t
 
       - name: Check out repository code
