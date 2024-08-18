@@ -11,9 +11,10 @@ jobs:
           uname -m | grep -q "arm64" || exit 1
 
       - name: Build the dependent libraries
+        working-directory: ./Users/runner/work
         run: |
-          git clone https://github.com/SDL-Hercules-390/gists.git
-          cd gists
+          git clone https://github.com/SDL-Hercules-390/gists.git extpkgs
+          cd extpkgs
 
           # Configure it for aarch64
           sed -i '' 's/^cpu .*/cpu = aarch64/' extpkgs.sh.ini
@@ -25,7 +26,7 @@ jobs:
 
       - name: Configure
         run: |
-          ./configure --enable-extpkgs=/Users/runner/work/hyperion/hyperion/gists/.
+          ./configure --enable-extpkgs=/Users/runner/work/extpkgs/
       - name: Make
         run: |
           make
