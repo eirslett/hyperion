@@ -8,4 +8,4 @@ jobs:
         uses: actions/checkout@v4
       - name: Make
         run: |
-          ./Makefile.bat RETAIL-X64 makefile.mscs 64
+          ./Makefile.bat RETAIL-X64 makefile.msvc 64
