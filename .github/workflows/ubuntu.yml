@@ -1,7 +1,7 @@
-name: Ubuntu build
+name: Build Ubuntu
 on: [push, workflow_dispatch]
 jobs:
-  build:
+  build-ubuntu:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -13,3 +13,8 @@ jobs:
       - name: Make
         run: |
           make
+      - name: Make install
+        run: |
+          sudo make install
+      - name: Check artifact
+        run: hercules -v

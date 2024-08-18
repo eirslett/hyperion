@@ -1,7 +1,7 @@
-name: Emscripten Build
+name: Build Emscripten
 on: [push, workflow_dispatch]
 jobs:
-  build:
+  build-emscripten:
     runs-on: ubuntu-latest
     steps:
       - name: Install required tools

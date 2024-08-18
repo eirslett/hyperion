@@ -1,7 +1,7 @@
-name: MacOS Silicon build
+name: Build MacOS Silicon
 on: [push, workflow_dispatch]
 jobs:
-  build:
+  build-macos-silicon:
     runs-on: macos-14
     steps:
       - name: "Verify that it's arm64 - a Silicon Mac"
@@ -30,3 +30,8 @@ jobs:
       - name: Make
         run: |
           make
+      - name: Make install
+        run: |
+          sudo make install
+      - name: Check artifact
+        run: hercules -v
