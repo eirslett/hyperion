@@ -2,10 +2,10 @@ name: Build Windows
 on: [push, workflow_dispatch]
 jobs:
   "build-windows":
-    runs-on: windows-2022
+    runs-on: windows-2019
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Make
         run: |
-          ./Makefile.bat RETAIL-X64 makefile.mscs
+          ./Makefile.bat RETAIL-X64 makefile.mscs 64
