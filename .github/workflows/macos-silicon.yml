@@ -1,0 +1,27 @@
+name: MacOS Silicon build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: "Verify that it's arm64 - a Silicon Mac"
+        run: |
+          sysctl -n machdep.cpu.brand_string
+          uname -m
+          uname -m | grep -q "arm64" || exit 1
+
+      - name: Build the dependent libraries
+        run: |
+          git clone https://github.com/SDL-Hercules-390/gists.git
+          cd gists
+          ./extpkgs.sh clone c d s t
+
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: |
+          ./configure
+      - name: Make
+        run: |
+          make
